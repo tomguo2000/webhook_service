@@ -4,13 +4,15 @@ from flask import request
 
 application = create_app()
 
+errorLogfileHandle = open('log/errorLogfile.txt', 'a')
 
 @application.route('/webhook',  methods=['POST'])
 def webhook():
     try:
         logger.info(f"MESSAGE: {request.data.decode()}")
     except:
-        logger.warning("MESSAGE: something wrong")
+        errorLogfileHandle.write(f"MESSAGE: something wrong with write log: {request.data.decode()} \n")
+        errorLogfileHandle.flush()
 
     finally:
         return {'code': 200}
@@ -18,16 +20,24 @@ def webhook():
 
 @application.route('/webhook/get', methods=['GET'])
 def webhook_get():
-    logger.info(f"MESSAGE: {request.url}")
+    try:
+        logger.info(f"MESSAGE: {request.url}")
+    except:
+        errorLogfileHandle.write(f"MESSAGE: something wrong with write log: {request.url} \n")
+        errorLogfileHandle.flush()
 
     return {'code': 200}
 
 
 @application.route('/response_put', methods=['PUT'])
 def response_put():
-    logger.info(f"MESSAGE_URL: {request.url}")
-    logger.info(f"MESSAGE_FORM_DATA: {request.form}")
-    logger.info(f"MESSAGE_BODY: {request.data}")
+    try:
+        logger.info(f"MESSAGE_URL: {request.url}")
+        logger.info(f"MESSAGE_FORM_DATA: {request.form}")
+        logger.info(f"MESSAGE_BODY: {request.data}")
+    except:
+        errorLogfileHandle.write("MESSAGE: something wrong with write log \n")
+        errorLogfileHandle.flush()
 
     return {'code': 200}
 
