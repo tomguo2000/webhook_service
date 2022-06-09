@@ -12,8 +12,9 @@ errorlog = "log/debug.log"
 daemon = False   # 重要！ 如果要打docker，一定要False，否则docker run后立即退出
 
 # 启动的进程数
-workers = multiprocessing.cpu_count() * 1
+# workers = multiprocessing.cpu_count() * 1
+workers = 1
 worker_class = 'gevent'
-threads = 2
-worker_connections = 200
+# threads = 2
+worker_connections = 1000
 x_forwarded_for_header = 'X-FORWARDED-FOR'
