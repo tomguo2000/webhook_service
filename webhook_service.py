@@ -11,6 +11,7 @@ infoLogfileHandle = open('log/infoLogfile.txt', 'a')
 def webhook():
     try:
         infoLogfileHandle.write(f"MESSAGE: {request.data.decode()} \n")
+        infoLogfileHandle.flush()
     except:
         errorLogfileHandle.write(f"MESSAGE: something wrong with write log: {request.data.decode()} \n")
         errorLogfileHandle.flush()
@@ -23,6 +24,7 @@ def webhook():
 def webhook_get():
     try:
         infoLogfileHandle.write(f"MESSAGE: {request.url} \n")
+        infoLogfileHandle.flush()
     except:
         errorLogfileHandle.write(f"MESSAGE: something wrong with write log: {request.url} \n")
         errorLogfileHandle.flush()
