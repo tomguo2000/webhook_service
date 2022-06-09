@@ -4,17 +4,13 @@ from flask import request
 
 application = create_app()
 
-errorLogfileHandle = open('log/errorLogfile.txt', 'a')
-infoLogfileHandle = open('log/infoLogfile.txt', 'a')
 
 @application.route('/webhook',  methods=['POST'])
 def webhook():
     try:
-        infoLogfileHandle.write(f"MESSAGE: {request.data.decode()} \n")
-        infoLogfileHandle.flush()
+        logger.info(f"MESSAGE: {request.data.decode()} \n")
     except:
-        errorLogfileHandle.write(f"MESSAGE: something wrong with write log: {request.data.decode()} \n")
-        errorLogfileHandle.flush()
+        logger.warning(f"MESSAGE: something wrong with write log: {request.data.decode()} \n")
 
     finally:
         return {'code': 200}
@@ -23,11 +19,9 @@ def webhook():
 @application.route('/webhook/get', methods=['GET'])
 def webhook_get():
     try:
-        infoLogfileHandle.write(f"MESSAGE: {request.url} \n")
-        infoLogfileHandle.flush()
+        logger.info(f"MESSAGE: {request.url} \n")
     except:
-        errorLogfileHandle.write(f"MESSAGE: something wrong with write log: {request.url} \n")
-        errorLogfileHandle.flush()
+        logger.warning(f"MESSAGE: something wrong with write log: {request.url} \n")
 
     return {'code': 200}
 
@@ -39,8 +33,7 @@ def response_put():
         logger.info(f"MESSAGE_FORM_DATA: {request.form}")
         logger.info(f"MESSAGE_BODY: {request.data}")
     except:
-        errorLogfileHandle.write("MESSAGE: something wrong with write log \n")
-        errorLogfileHandle.flush()
+        logger.warning("MESSAGE: something wrong with write log \n")
 
     return {'code': 200}
 

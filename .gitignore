@@ -1,3 +1,4 @@
 /log/webhook_service.log
 .idea/
 /log/errorLogfile.txt
+/log/.__webhook_service.lock
