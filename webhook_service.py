@@ -5,11 +5,12 @@ from flask import request
 application = create_app()
 
 errorLogfileHandle = open('log/errorLogfile.txt', 'a')
+infoLogfileHandle = open('log/infoLogfile.txt', 'a')
 
 @application.route('/webhook',  methods=['POST'])
 def webhook():
     try:
-        logger.info(f"MESSAGE: {request.data.decode()}")
+        infoLogfileHandle.write(f"MESSAGE: {request.data.decode()}")
     except:
         errorLogfileHandle.write(f"MESSAGE: something wrong with write log: {request.data.decode()} \n")
         errorLogfileHandle.flush()
@@ -21,7 +22,7 @@ def webhook():
 @application.route('/webhook/get', methods=['GET'])
 def webhook_get():
     try:
-        logger.info(f"MESSAGE: {request.url}")
+        infoLogfileHandle.write(f"MESSAGE: {request.url}")
     except:
         errorLogfileHandle.write(f"MESSAGE: something wrong with write log: {request.url} \n")
         errorLogfileHandle.flush()
