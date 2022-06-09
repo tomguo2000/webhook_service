@@ -8,9 +8,9 @@ application = create_app()
 @application.route('/webhook',  methods=['POST'])
 def webhook():
     try:
-        logger.info(f"MESSAGE: {request.data.decode()} \n")
+        logger.info(f"MESSAGE: {request.data.decode()}")
     except:
-        logger.warning(f"MESSAGE: something wrong with write log: {request.data.decode()} \n")
+        logger.warning(f"MESSAGE: something wrong with write log: {request.data.decode()}")
 
     finally:
         return {'code': 200}
@@ -19,9 +19,9 @@ def webhook():
 @application.route('/webhook/get', methods=['GET'])
 def webhook_get():
     try:
-        logger.info(f"MESSAGE: {request.url} \n")
+        logger.info(f"MESSAGE: {request.url}")
     except:
-        logger.warning(f"MESSAGE: something wrong with write log: {request.url} \n")
+        logger.warning(f"MESSAGE: something wrong with write log: {request.url}")
 
     return {'code': 200}
 
@@ -33,7 +33,7 @@ def response_put():
         logger.info(f"MESSAGE_FORM_DATA: {request.form}")
         logger.info(f"MESSAGE_BODY: {request.data}")
     except:
-        logger.warning("MESSAGE: something wrong with write log \n")
+        logger.warning("MESSAGE: something wrong with write log")
 
     return {'code': 200}
 
