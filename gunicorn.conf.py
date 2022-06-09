@@ -14,4 +14,6 @@ daemon = False   # 重要！ 如果要打docker，一定要False，否则docker 
 # 启动的进程数
 workers = multiprocessing.cpu_count() * 1
 worker_class = 'gevent'
+# threads = 2
+worker_connections = 500
 x_forwarded_for_header = 'X-FORWARDED-FOR'
