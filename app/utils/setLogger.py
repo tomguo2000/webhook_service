@@ -20,9 +20,13 @@ def init_logger(LOG_basename, Log_level=logging.INFO, LOG_path='log/', env='unkn
 
         LOG_FILENAME = os.path.join(LOG_path, LOG_basename)
 
+        # 添加processID到日志文件名
+        pid = os.getpid()
+        LOG_FILENAME = LOG_FILENAME + '_' + str(pid)
+
         # 创建两个handler
-        # fh = logging.handlers.TimedRotatingFileHandler(
-        fh = ConcurrentTimedRotatingFileHandler(
+        fh = logging.handlers.TimedRotatingFileHandler(
+        # fh = ConcurrentTimedRotatingFileHandler(
             # LOG_FILENAME, when="D", interval=1, backupCount=90, encoding="utf-8", delay=False, utc=True)
             LOG_FILENAME, when="midnight", interval=1, backupCount=90, encoding="utf-8", delay=False)
         ch = logging.StreamHandler()
